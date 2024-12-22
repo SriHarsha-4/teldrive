@@ -2,18 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/teldrive.js",
+      "src": "teldrive.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/teldrive",
+      "src": "/api/teldrive",
       "dest": "/teldrive.js"
     }
   ],
   "env": {
-    "CONFIG_PATH": "/var/task/config.toml",
-    "SESSION_PATH": "/var/task/session.db"
+    "CONFIG_PATH": "/config.toml",
+    "SESSION_PATH": "/session.db"
   }
 }
