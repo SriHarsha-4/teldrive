@@ -1,24 +1,12 @@
+# Use the official teldrive image as the base image
+FROM ghcr.io/tgdrive/teldrive
 
-FROM golang:alpine AS builder
+# Copy your custom configuration and session files into the container
+COPY ./config.toml /config.toml
+COPY ./session.db /session.db
 
-RUN apk add --no-cache git unzip curl make bash
-
-WORKDIR /app
-
-COPY go.mod go.sum ./
-
-RUN go mod download
-
-COPY . .
-
-RUN make build
-
-FROM scratch
-
-WORKDIR /
-
-COPY --from=builder /app/bin/teldrive /teldrive
-
+# Expose port 8080 to the host
 EXPOSE 8080
 
-ENTRYPOINT ["/teldrive","run","--tg-session-file","/session.db"]
+# Run the container with the default entrypoint
+CMD ["teldrive"]
