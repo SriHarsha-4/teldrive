@@ -1,5 +1,5 @@
 [db]
-  data-source = ""
+  data-source = "postgresql://postgres.teivpvtmxjzpwrpzmhxf:Hinokamikagura1@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
   prepare-stmt = true
   log-level = 1
   [db.pool]
@@ -13,7 +13,7 @@
 
 [jwt]
   allowed-users = [""]
-  secret = ""
+  secret = "e66425a18474843ecda9587d90bd486df04acec0f731c04c78279f8ef32c2920"
   session-time = "30d"
 
 [log]
@@ -27,27 +27,26 @@
   write-timeout = "1h"
 
 [tg]
-  app-hash = ""
-  app-id = 0
+  app-hash = "eae31c3d216d33d29a2212d5d209620b"
+  app-id = 19066135
   app-version = "4.6.3 K"
-  bg-bots-limit = 5
+  bg-bots-limit = 12
   device-model = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0"
   disable-stream-bots = false
   lang-code = "en"
   lang-pack = "webk"
-  rate = 100
-  rate-burst = 5
-  rate-limit = true
+  rate = 50
+  rate-burst = 20
+  rate-limit = false
   session-file = ""
   system-lang-code = "en-US"
   system-version = "Win32"
-  proxy= "http://127.0.0.1:8080"
   
   [tg.uploads]
     encryption-key = ""
     retention = "7d"
     threads = 8
   [tg.stream]
-    multi-threads = 0
-    buffers = 8
+    multi-threads = 8
+    buffers = 16
 
