@@ -1,21 +1,24 @@
-# Use the existing image as the base
-FROM ghcr.io/tgdrive/teldrive
 
-# Create a non-root user with a UID between 10000 and 20000 (e.g., UID 10001)
-RUN useradd -u 10001 -m nonrootuser
+FROM golang:alpine AS builder
 
-# Switch to the non-root user
-USER nonrootuser
+RUN apk add --no-cache git unzip curl make bash
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the config.toml and session.db from the host to the container
-COPY ./config.toml /config.toml
-COPY ./session.db /session.db
+COPY go.mod go.sum ./
 
-# Expose port 8080 to make it accessible
+RUN go mod download
+
+COPY . .
+
+RUN make build
+
+FROM scratch
+
+WORKDIR /
+
+COPY --from=builder /app/bin/teldrive /teldrive
+
 EXPOSE 8080
 
-# Set the default command to run the container
-CMD ["./teldrive"]
+ENTRYPOINT ["/teldrive","run","--tg-session-file","/session.db"]
