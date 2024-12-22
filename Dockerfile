@@ -1,8 +1,8 @@
 # Use the existing image as the base
 FROM ghcr.io/tgdrive/teldrive
 
-# Create a non-root user with a specific UID (e.g., 10014)
-RUN useradd -u 10014 -m nonrootuser
+# Create a non-root user with a UID between 10000 and 20000 (e.g., UID 10001)
+RUN useradd -u 10001 -m nonrootuser
 
 # Switch to the non-root user
 USER nonrootuser
