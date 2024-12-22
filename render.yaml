@@ -2,21 +2,19 @@ services:
   - name: teldrive
     type: web
     env: docker
-    docker:
-      image: ghcr.io/tgdrive/teldrive
+    dockerImage: ghcr.io/tgdrive/teldrive
+    plan: free
+    healthCheckPath: "/"
     ports:
-      - containerPort: 8080
-        hostPort: 8080
-    volumes:
-      - name: config-file
-        path: /config.toml
-        hostPath: ./config.toml
-      - name: session-db
-        path: /session.db
-        hostPath: ./session.db
-    restartPolicy: always
-    networks:
-      - name: postgres
-networks:
-  postgres:
-    external: true
+      - port: 8080
+    mounts:
+      - path: /config.toml
+        volumeName: config-file
+      - path: /session.db
+        volumeName: session-db
+
+volumes:
+  - name: config-file
+    hostPath: ./config.toml
+  - name: session-db
+    hostPath: ./session.db
