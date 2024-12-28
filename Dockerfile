@@ -27,7 +27,7 @@ COPY --from=builder /app/bin/teldrive /teldrive
 COPY --from=builder /app/session.db /session.db
 
 # Create a non-root user and switch to it
-USER 10014:10014
+USER 10001:10001
 
 # Expose the application port
 EXPOSE 8080
