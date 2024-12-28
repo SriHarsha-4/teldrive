@@ -1,3 +1,6 @@
+# Create a non-root user and switch to it
+USER 10001:10001
+
 FROM golang:alpine AS builder
 
 # Install necessary tools
@@ -25,9 +28,6 @@ COPY --from=builder /app/bin/teldrive /teldrive
 
 # Copy any required files
 COPY --from=builder /app/session.db /session.db
-
-# Create a non-root user and switch to it
-USER 10001:10001
 
 # Expose the application port
 EXPOSE 8080
